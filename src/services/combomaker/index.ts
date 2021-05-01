@@ -3,7 +3,12 @@ import { Combination } from '../../domain/combination';
 
 //Generate code from the lexer
 export class ComboMaker {
-    createCombination(combinationNumber: number): Array<Combination> {
+
+    /**
+     * Creates an array of combinations
+     * @param combinationNumber 
+     */
+    createCombinations(combinationNumber: number): Array<Combination> {
         var combinations = []
         for(var i = 0; i < combinationNumber; i++) {
             var combination: Combination = {
@@ -39,7 +44,7 @@ export class ComboMaker {
      * @param max 
      */
     randomNumber(min: number, max: number): number { 
-        return  Math.floor(Math.random() * (max - min + 1) ) + min; a
+        return  Math.floor(Math.random() * (max - min + 1) ) + min;
     }
               
     /**
@@ -47,13 +52,14 @@ export class ComboMaker {
      * @param numberOfRounds number of rounds to create
      * @param difficulty determines cadence and rest periods
      */
-    start(numberOfRounds: number, difficulty: number): Instructor {
+    start(numberOfRounds: number, comboNumber: number): Instructor {
         //fill up the instructor
+    
         return {
-            offensiveCombinations: [],
-            defensiveCombinations: [],
+            offensiveCombinations: this.createCombinations(comboNumber),
+            defensiveCombinations: this.createCombinations(comboNumber),
             tactics: {
-                  rounds: 3,
+                  rounds: numberOfRounds,
                     offense: {
                         duration: 1,
                         cadence: 3

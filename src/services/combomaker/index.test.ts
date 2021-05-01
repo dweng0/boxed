@@ -25,6 +25,6 @@ test('should create a cadence delta', () => {
 });
 
 test('should create a combination', () => {
- var combinations:  Array<Combination> = new ComboMaker().createCombination(4);
+ var combinations:  Array<Combination> = new ComboMaker().createCombinations(4);
   expect(combinations.length).toEqual(4);
 });
