@@ -30,12 +30,12 @@ export class ComboMaker {
 
     randomOdd(): number {
         var randomisedNumber = this.randomNumber(1, 7);
-        return (randomisedNumber % 2 == 0) ? randomisedNumber + 1 : randomisedNumber;
+        return (randomisedNumber % 2 === 0) ? randomisedNumber + 1 : randomisedNumber;
     }
     
     randomEven(): number {
         var randomisedNumber = this.randomNumber(1, 7);
-        return (randomisedNumber % 2 == 0) ? randomisedNumber : randomisedNumber + 1;
+        return (randomisedNumber % 2 === 0) ? randomisedNumber : randomisedNumber + 1;
     }
 
     /**a

@@ -7,22 +7,9 @@ function Home() {
     var results = new ComboMaker().start(3, 30);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <pre>
+     <pre>
             {JSON.stringify(results)}
         </pre>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
   );
 }
 
