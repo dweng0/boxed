@@ -4,6 +4,8 @@
   Route,
   Link
 } from 'react-router-dom';
+
+import React from'react';
 import Home from '../pages/Home/App';
 
 export default function App() {
@@ -11,15 +13,15 @@ export default function App() {
     <Router>
       <div>
         <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
+          <ul className="nav" >
+            <li className="nav-item">
+              <Link className="nav-link" to="/">Home</Link>
             </li>
-            <li>
-              <Link to="/about">About</Link>
+            <li className="nav-item">
+              <Link className="nav-link" to="/about">About</Link>
             </li>
-            <li>
-              <Link to="/users">Users</Link>
+            <li className="nav-item">
+              <Link className="nav-link" to="/users">Users</Link>
             </li>
           </ul>
         </nav>

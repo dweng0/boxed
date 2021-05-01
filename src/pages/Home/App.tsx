@@ -1,16 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { ComboMaker } from '../../services/combomaker';
+import NumberDisplayer from '../../components/NumberDisplayer';
 
-function Home() {
-    var results = new ComboMaker().start(3, 30);
-
-  return (
-     <pre>
-            {JSON.stringify(results)}
-        </pre>
-  );
+const Test: React.FunctionComponent = () => {
+    var code = new ComboMaker().start(4, 20);
+    return (
+        <>
+        <div className="jumbotron text-center">
+            <h1>Test</h1>
+            <pre>{JSON.stringify(code)}</pre>
+        </div>
+        <NumberDisplayer {number}/>
+        </>
+    )
 }
 
-export default Home;
+export default Test;
