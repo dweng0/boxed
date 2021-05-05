@@ -1,10 +1,11 @@
-import React from 'react';
-import './App.css';
-import { Combination } from '../../domain/combination';
+import React, { useReducer } from 'react';
+import { ComboStatus } from './models/ComboStatus';
+import { Details } from './models/details';
+import reducer from './hooks/reducer';
 
-const DisplayCombo: React.FunctionComponent<Combination> = (props) => {
-   const { odd, even, cadence} = props;
-
+const DisplayCombo: React.FunctionComponent<Details> = (props) => {
+    const { odd, even, cadence} = props;
+    const [state, dispatch] = useReducer(reducer, ComboStatus.evenHand);
     return (
         <div className="container">
             <div className="row">

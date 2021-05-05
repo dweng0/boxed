@@ -11,7 +11,7 @@ const Test: React.FunctionComponent = () => {
             <h1>Test</h1>
             <pre>{JSON.stringify(code)}</pre>
         </div>
-        <NumberDisplayer {number}/>
+        <NumberDisplayer odd={code.offensiveCombinations[0].odd} even={code.offensiveCombinations[0].even} cadence={200}/>
         </>
     )
 }
