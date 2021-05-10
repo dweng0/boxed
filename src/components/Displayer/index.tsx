@@ -20,20 +20,23 @@ const DisplayField: React.FunctionComponent<ComboDetails> = (props) => {
     const getInitialState = (): ReducerState => {
         return { 
             delta: 0,
-            combination: details.combinations[0],
-            offense: onOffense()
+            combination: details.combinations[0]
         }
     };
 
     const [state, dispatch] = useReducer(reducer, undefined, getInitialState);
 
-    return (
-        <div>
-            <p>{state.offense ? ("Attack"!) : ("Defend!")} [todo styling component]</p>
-            <CombinationDisplay combination={details.combinations[state.delta]} dispatcher={dispatch}  />
-        </div>
-            
-    )
+    if(details.combinations[state.delta]) {
+        return (
+            <div>
+                <p>{onOffense() ? ("Attack"!) : ("Defend!")} [todo styling component]</p>
+                <CombinationDisplay combination={details.combinations[state.delta]} dispatcher={dispatch}  />
+            </div>
+        )
+    } else {
+        return <h2>Finished!</h2>
+    }
+   
  }
 
 export default DisplayField

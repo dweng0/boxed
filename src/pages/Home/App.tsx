@@ -4,7 +4,7 @@ import { ComboMaker } from '../../services/combomaker';
 import Displayer from '../../components/Displayer';
 
 const Test: React.FunctionComponent = () => {
-    var code = new ComboMaker().start(4, 20);
+    var code = new ComboMaker().start(4, 60);
     return (
         <>
         <div className="jumbotron text-center">

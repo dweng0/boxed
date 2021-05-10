@@ -1,7 +1,7 @@
-import { ReducerAction, ReducerState } from '../models/index';
+import { ReducerState } from '../models/index';
 
-const reducer = (state: ReducerState, action: ReducerAction) => {
-  switch (action.type) {
+const reducer = (state: ReducerState, action: string) => {
+  switch (action) {
     case 'increment':
       return {...state, ...{ delta: state.delta + 1}};
     case 'decrement':

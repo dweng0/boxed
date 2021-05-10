@@ -7,6 +7,5 @@ export interface ReducerAction {
 
 export interface ReducerState { 
     delta: number,
-    combination: Combination,
-    offense: Boolean
+    combination: Combination
 };

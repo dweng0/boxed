@@ -5,6 +5,8 @@ interface CombinationDetails {
     combination: Combination,
     dispatcher: any
 }
+
+const CADENCE_FLOOR = 1000; 
 const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) => { 
 
     const { dispatcher, combination } = props;
@@ -13,7 +15,7 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
         console.log('here');
         const timeout = setTimeout(() => {
             dispatcher('increment');
-        }, combination.cadence);
+        }, combination.cadence + CADENCE_FLOOR);
         return () => clearTimeout(timeout);
 
     }, [combination, dispatcher]);
