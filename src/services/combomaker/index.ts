@@ -56,8 +56,7 @@ export class ComboMaker {
         //fill up the instructor
     
         return {
-            offensiveCombinations: this.createCombinations(comboNumber),
-            defensiveCombinations: this.createCombinations(comboNumber),
+            combinations: this.createCombinations(comboNumber),
             tactics: {
                   rounds: numberOfRounds,
                     offense: {

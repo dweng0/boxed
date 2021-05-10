@@ -1,9 +1,11 @@
 
 import Instructor from '../../domain/instructor';
-import { useState } from 'react';
-import { Combination } from '../../domain/combination';
+import { useReducer } from 'react';
+import {ReducerState} from './models';
+import reducer from './reducers';
+import CombinationDisplay from '../Combo';
 
-interface ComboDetails {
+export interface ComboDetails {
     details: Instructor
 };
 
@@ -14,17 +16,21 @@ const onOffense = (): boolean => (Math.floor(Math.random() * 100) + 1) <= OFFENS
 
 const DisplayField: React.FunctionComponent<ComboDetails> = (props) => {
     const { details } = props;
-    const [delta, setDelta] = useState(0);
-    const [onOffensive, setOnOffensive] = useState(onOffense());
-    
-    const getCombo = ():Combination  => {
-        return details.offensiveCombinations[delta];
+
+    const getInitialState = (): ReducerState => {
+        return { 
+            delta: 0,
+            combination: details.combinations[0],
+            offense: onOffense()
+        }
     };
+
+    const [state, dispatch] = useReducer(reducer, undefined, getInitialState);
 
     return (
         <div>
-            <p>{onOffense() ? ("Attack"!) : ("Defend!")}</p>
-            {JSON.stringify(getCombo())}
+            <p>{state.offense ? ("Attack"!) : ("Defend!")} [todo styling component]</p>
+            <CombinationDisplay combination={details.combinations[state.delta]} dispatcher={dispatch}  />
         </div>
             
     )
