@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { ComboMaker } from '../../services/combomaker';
-import NumberDisplayer from '../../components/NumberDisplayer';
+import Displayer from '../../components/Displayer';
 
 const Test: React.FunctionComponent = () => {
     var code = new ComboMaker().start(4, 20);
@@ -11,7 +11,7 @@ const Test: React.FunctionComponent = () => {
             <h1>Test</h1>
             <pre>{JSON.stringify(code)}</pre>
         </div>
-        <NumberDisplayer odd={code.offensiveCombinations[0].odd} even={code.offensiveCombinations[0].even} cadence={200}/>
+        <Displayer details={code} />
         </>
     )
 }
