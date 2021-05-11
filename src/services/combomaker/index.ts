@@ -10,10 +10,11 @@ export class ComboMaker {
      */
     createCombinations(combinationNumber: number): Array<Combination> {
         var combinations = []
+
         for(var i = 0; i < combinationNumber; i++) {
             var combination: Combination = {
-                odd: this.randomOdd(),
-                even: this.randomEven(),
+                odd: this.randomOdd(combinations[i-1]?.odd || 0),
+                even: this.randomEven(combinations[i-1]?.even || 0),
                 cadence: this.randomCadence()
             }
             combinations.push(combination);
@@ -25,16 +26,16 @@ export class ComboMaker {
      * generate a random cadence in milli seconds
      */
     randomCadence(): number {
-        return this.randomNumber(150, 1500)
+        return this.randomNumber(150, 1500, 0);
     }
 
-    randomOdd(): number {
-        var randomisedNumber = this.randomNumber(1, 6);
+    randomOdd(previous: number): number {
+        var randomisedNumber = this.randomNumber(1, 5, previous);
         return (randomisedNumber % 2 === 0) ? randomisedNumber + 1 : randomisedNumber;
     }
     
-    randomEven(): number {
-        var randomisedNumber = this.randomNumber(1, 6);
+    randomEven(previous: number): number {
+        var randomisedNumber = this.randomNumber(1, 5, previous);
         return (randomisedNumber % 2 === 0) ? randomisedNumber : randomisedNumber + 1;
     }
 
@@ -43,8 +44,14 @@ export class ComboMaker {
      * @param min 
      * @param max 
      */
-    randomNumber(min: number, max: number): number { 
-        return  Math.floor(Math.random() * (max - min + 1) ) + min;
+    randomNumber(min: number, max: number, previous: number): number { 
+        const randomise = () => Math.floor(Math.random() * (max - min + 1) ) + min
+        let random = randomise();
+        while(random === previous) {
+            debugger;
+            random = randomise();
+        }
+        return random;
     }
               
     /**
