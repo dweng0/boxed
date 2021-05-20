@@ -25,16 +25,40 @@ const DisplayField: React.FunctionComponent<ComboDetails> = (props) => {
     };
 
     const [state, dispatch] = useReducer(reducer, undefined, getInitialState);
-
+    const isAttacking = onOffense();
+    const jumboTron =() => {
+        return (
+            <div className={`text-center`}>
+                <h1 style={{fontSize: "8rem"}}>{isAttacking ? ("Attack") : ("Defend")}</h1>
+            </div>
+        );
+    }
+  
     if(details.combinations[state.delta]) {
         return (
-            <div>
-                <p>{onOffense() ? ("Attack"!) : ("Defend!")} [todo styling component]</p>
-                <CombinationDisplay combination={details.combinations[state.delta]} dispatcher={dispatch}  />
+            <>
+            <div className="row">
+                  <img alt="logo" style={{width: "100%", maxWidth: "150px", margin: "auto"}} src="/resources/logo.png"/>
             </div>
+            <div className="row">
+                <div className="col">
+                    <hr/>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                  {jumboTron()}
+                </div>                
+            </div>
+            <CombinationDisplay isAttacking={isAttacking} combination={details.combinations[state.delta]} dispatcher={dispatch}  />
+            </>
         )
     } else {
-        return <h2>Finished!</h2>
+        return (
+            <div className={`jumbotron text-center bg-primary`}>
+                <h1>Finished</h1>
+            </div>
+        )
     }
    
  }

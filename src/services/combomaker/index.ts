@@ -10,12 +10,31 @@ export class ComboMaker {
      */
     createCombinations(combinationNumber: number): Array<Combination> {
         var combinations = []
+
         for(var i = 0; i < combinationNumber; i++) {
-            var combination: Combination = {
-                odd: this.randomOdd(),
-                even: this.randomEven(),
-                cadence: this.randomCadence()
+
+            //grab the previous number so that we never provide the same combos in a row
+            let previousNumberOdd = 0;
+            let previousNumberEven = 0;
+
+            const prev = i -1;
+            if(combinations[prev]){
+                previousNumberEven = combinations[prev].even;
+                previousNumberOdd = combinations[prev].odd;
             }
+          
+            //get random numbers, making a note of the previous number (so we dont return that.)
+            const odd = this.randomOdd(previousNumberOdd);
+            const even = this.randomEven(previousNumberEven);
+            const cadence = this.randomCadence();
+
+            //spread into a new Combination object
+            const combination: Combination = {
+               odd,
+               even,
+               cadence
+            };
+
             combinations.push(combination);
         }
         return combinations;
@@ -25,26 +44,31 @@ export class ComboMaker {
      * generate a random cadence in milli seconds
      */
     randomCadence(): number {
-        return this.randomNumber(150, 1500)
+        return this.randomNumber(1500, 2700, 0);
     }
 
-    randomOdd(): number {
-        var randomisedNumber = this.randomNumber(1, 6);
+    randomOdd(previous: number): number {
+        var randomisedNumber = this.randomNumber(1, 5, previous);
         return (randomisedNumber % 2 === 0) ? randomisedNumber + 1 : randomisedNumber;
     }
     
-    randomEven(): number {
-        var randomisedNumber = this.randomNumber(1, 6);
+    randomEven(previous: number): number {
+        var randomisedNumber = this.randomNumber(1, 5, previous);
         return (randomisedNumber % 2 === 0) ? randomisedNumber : randomisedNumber + 1;
     }
 
     /**a
-     * Generate a random numbe rbetween min and max, inclusive
+     * Generate a random number between min and max, inclusive
      * @param min 
      * @param max 
      */
-    randomNumber(min: number, max: number): number { 
-        return  Math.floor(Math.random() * (max - min + 1) ) + min;
+    randomNumber(min: number, max: number, previous: number): number { 
+        const randomise = () => Math.floor(Math.random() * (max - min + 1) ) + min
+        let random = randomise();
+        while(random === previous) {
+            random = randomise();
+        }
+        return random;
     }
               
     /**
