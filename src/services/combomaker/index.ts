@@ -12,11 +12,29 @@ export class ComboMaker {
         var combinations = []
 
         for(var i = 0; i < combinationNumber; i++) {
-            var combination: Combination = {
-                odd: this.randomOdd(combinations[i-1]?.odd || 0),
-                even: this.randomEven(combinations[i-1]?.even || 0),
-                cadence: this.randomCadence()
+
+            //grab the previous number so that we never provide the same combos in a row
+            let previousNumberOdd = 0;
+            let previousNumberEven = 0;
+
+            const prev = i -1;
+            if(combinations[prev]){
+                previousNumberEven = combinations[prev].even;
+                previousNumberOdd = combinations[prev].odd;
             }
+          
+            //get random numbers, making a note of the previous number (so we dont return that.)
+            const odd = this.randomOdd(previousNumberOdd);
+            const even = this.randomEven(previousNumberEven);
+            const cadence = this.randomCadence();
+
+            //spread into a new Combination object
+            const combination: Combination = {
+               odd,
+               even,
+               cadence
+            };
+
             combinations.push(combination);
         }
         return combinations;
@@ -26,7 +44,7 @@ export class ComboMaker {
      * generate a random cadence in milli seconds
      */
     randomCadence(): number {
-        return this.randomNumber(150, 1500, 0);
+        return this.randomNumber(1500, 2700, 0);
     }
 
     randomOdd(previous: number): number {
@@ -40,7 +58,7 @@ export class ComboMaker {
     }
 
     /**a
-     * Generate a random numbe rbetween min and max, inclusive
+     * Generate a random number between min and max, inclusive
      * @param min 
      * @param max 
      */
@@ -48,7 +66,6 @@ export class ComboMaker {
         const randomise = () => Math.floor(Math.random() * (max - min + 1) ) + min
         let random = randomise();
         while(random === previous) {
-            debugger;
             random = randomise();
         }
         return random;

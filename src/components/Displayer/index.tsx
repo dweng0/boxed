@@ -1,6 +1,6 @@
 
 import Instructor from '../../domain/instructor';
-import { useReducer, useEffect, useState } from 'react';
+import { useReducer } from 'react';
 import {ReducerState} from './models';
 import reducer from './reducers';
 import CombinationDisplay from '../Combo';
@@ -25,12 +25,11 @@ const DisplayField: React.FunctionComponent<ComboDetails> = (props) => {
     };
 
     const [state, dispatch] = useReducer(reducer, undefined, getInitialState);
-
+    const isAttacking = onOffense();
     const jumboTron =() => {
-        const result = onOffense();
         return (
             <div className={`text-center`}>
-                <h1 style={{fontSize: "8rem"}}>{result ? ("Attack") : ("Defend")}</h1>
+                <h1 style={{fontSize: "8rem"}}>{isAttacking ? ("Attack") : ("Defend")}</h1>
             </div>
         );
     }
@@ -39,7 +38,7 @@ const DisplayField: React.FunctionComponent<ComboDetails> = (props) => {
         return (
             <>
             <div className="row">
-                  <img style={{width: "100%", maxWidth: "350px", margin: "auto"}} src="/resources/logo.png"/>
+                  <img alt="logo" style={{width: "100%", maxWidth: "150px", margin: "auto"}} src="/resources/logo.png"/>
             </div>
             <div className="row">
                 <div className="col">
@@ -51,13 +50,12 @@ const DisplayField: React.FunctionComponent<ComboDetails> = (props) => {
                   {jumboTron()}
                 </div>                
             </div>
-            
-            <CombinationDisplay combination={details.combinations[state.delta]} dispatcher={dispatch}  />
+            <CombinationDisplay isAttacking={isAttacking} combination={details.combinations[state.delta]} dispatcher={dispatch}  />
             </>
         )
     } else {
         return (
-               <div className={`jumbotron text-center bg-primary`}>
+            <div className={`jumbotron text-center bg-primary`}>
                 <h1>Finished</h1>
             </div>
         )

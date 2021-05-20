@@ -4,6 +4,7 @@ import  Card from '../Card';
 
 interface CombinationDetails {
     combination: Combination,
+    isAttacking: boolean,
     dispatcher: any
 }
 
@@ -23,19 +24,19 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
 
     }, [combination, dispatcher]);
 
-    const asRandom = (type: number) => {
-        return `/resources/${PUNCH_MAP[type]}-${Math.floor(Math.random() * 3) + 1}.PNG`;
+    const getText = (isAttacking: boolean, moveNumber: number) => {
+        return isAttacking ? PUNCH_MAP[moveNumber] : DEFEND_MAP[moveNumber]
     }
-
+   
     return (
         <div className="row"> 
             <div className="col">
-                <h3 className="text-center">Primary Hand</h3>
-                <Card punchNumber={combination.even}/>
+                <h1 className="text-center battle-text">{getText(props.isAttacking, combination.odd)}</h1>
+                <Card punchNumber={combination.odd}/>
             </div>
             <div className="col">
-                <h3 className="text-center">Off Hand</h3>
-                 <Card punchNumber={combination.odd}/>
+                <h1 className="text-center battle-text">{getText(props.isAttacking, combination.even)}</h1>
+                <Card punchNumber={combination.even}/>
             </div>
         </div>
     );
