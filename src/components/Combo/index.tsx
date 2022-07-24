@@ -17,18 +17,18 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
 
     const { dispatcher, combination } = props;
     //const sounds: any = useSoundController();
-    const [play, {stop, isPlaying}] = useSound('/resources/boxingsprite.mp3', { 
+    const [play, {stop}] = useSound('/resources/boxingsprite.mp3', { 
         volume: 0.5,
         sprite: {
             onetwo: [0, 756],
-            onefour: [892, 1588],
-            onesix: [1882, 2745],
-            threetwo: [2892, 3699],
-            threefour: [3868, 4633],
-            threesix: [4876, 5823],
-            fivetwo: [6363, 7237],
-            fivefour: [7392, 8133],
-            fivesix: [8391, 9332],
+            onefour: [892, 756],
+            onesix: [1882, 756],
+            threetwo: [2892, 800],
+            threefour: [3868, 800],
+            threesix: [4876, 800],
+            fivetwo: [6363, 800],
+            fivefour: [7392, 800],
+            fivesix: [8391, 800],
 
         }
     });
@@ -36,7 +36,7 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
     const playSound = (combination:Combination) => {
         const oddText = getOddAsText(combination.odd);
         const evenText = getEvenAsText(combination.even);
-        console.log(`${oddText}${evenText}`);
+       
         try {
           play({id: `${oddText}${evenText}`});
         }
@@ -48,10 +48,11 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
    
    
     useEffect(() => { 
+        playSound(combination);
         const timeout = setTimeout(() => {
             dispatcher('increment');
         }, combination.cadence + CADENCE_FLOOR);
-        playSound(combination);
+
         return () => {
             stop();
             clearTimeout(timeout)
