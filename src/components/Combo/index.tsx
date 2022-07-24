@@ -16,7 +16,7 @@ const DEFEND_MAP = ['', 'weave', 'weave', 'block', 'block', 'sideblock', 'sidebl
 const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) => { 
 
     const { dispatcher, combination } = props;
-    const sounds = useSoundController();
+    const sounds: any = useSoundController();
     useEffect(() => { 
         const timeout = setTimeout(() => {
             dispatcher('increment');
@@ -63,7 +63,8 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
         const evenText = getEvenAsText(combination.even);
 
         try {
-            //sounds[`${oddText}${evenText}`]();
+            console.log(`Playing sound for ${oddText}${evenText}`);
+            sounds[`${oddText}${evenText}`]();
         }
         catch {
             console.log(`no sound for ${oddText}${evenText}`)
