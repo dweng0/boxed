@@ -1,6 +1,7 @@
 import { Combination } from "../../domain/combination";
 import { useEffect } from "react";
 import  Card from '../Card';
+import useSoundController from '../../services/hooks/soundcontroller';
 
 interface CombinationDetails {
     combination: Combination,
@@ -15,11 +16,12 @@ const DEFEND_MAP = ['', 'weave', 'weave', 'block', 'block', 'sideblock', 'sidebl
 const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) => { 
 
     const { dispatcher, combination } = props;
-
+    const sounds = useSoundController();
     useEffect(() => { 
         const timeout = setTimeout(() => {
             dispatcher('increment');
         }, combination.cadence + CADENCE_FLOOR);
+        
         return () => clearTimeout(timeout);
 
     }, [combination, dispatcher]);
@@ -27,7 +29,43 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
     const getText = (isAttacking: boolean, moveNumber: number) => {
         return isAttacking ? PUNCH_MAP[moveNumber] : DEFEND_MAP[moveNumber]
     }
+
+    const getOddAsText = (odd: number) => {
+        switch (odd) {
+            case 1:
+                return 'one';
+            case 3:
+                return 'three';
+            case 5:
+                return 'five';
+            default:
+                return 'one';
+        }
+    }
+
+
+    const getEvenAsText = (even: number) => {
+        //purposley capitalize the first character
+        switch (even) {
+            case 2:
+                return 'Two';
+            case 4:
+                return 'Four';
+            case 6:
+                return 'Six';
+            default:
+                return 'Two';
+        }
+    }
+
+    const playSound = (combination:Combination) => {
+        const oddText = getOddAsText(combination.odd);
+        const evenText = getEvenAsText(combination.even);
+
+        sounds[`${oddText}${evenText}`]();
+    }
    
+    playSound(combination);
     return (
         <div className="row"> 
             <div className="col">
