@@ -62,7 +62,13 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
         const oddText = getOddAsText(combination.odd);
         const evenText = getEvenAsText(combination.even);
 
-        sounds[`${oddText}${evenText}`]();
+        try {
+            //sounds[`${oddText}${evenText}`]();
+        }
+        catch {
+            console.log(`no sound for ${oddText}${evenText}`)
+        }
+        
     }
    
     playSound(combination);
