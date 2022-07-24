@@ -1,7 +1,7 @@
 import { Combination } from "../../domain/combination";
 import { useEffect } from "react";
 import  Card from '../Card';
-import useSoundController from '../../services/hooks/soundcontroller';
+import useSound from 'use-sound';
 
 interface CombinationDetails {
     combination: Combination,
@@ -16,7 +16,21 @@ const DEFEND_MAP = ['', 'weave', 'weave', 'block', 'block', 'sideblock', 'sidebl
 const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) => { 
 
     const { dispatcher, combination } = props;
-    const sounds: any = useSoundController();
+    //const sounds: any = useSoundController();
+    const [play] = useSound('/sounds/boxingsprite.mp3', { 
+        sprite: {
+            onetwo: [0, 756],
+            onefour: [892, 1588],
+            onesix: [1882, 2745],
+            threetwo: [2892, 3699],
+            threefour: [3868, 4633],
+            threesix: [4876, 5823],
+            fivetwo: [6363, 7237],
+            fivefour: [7392, 8133],
+            fivesix: [8391, 9332],
+
+        }
+    });
     useEffect(() => { 
         const timeout = setTimeout(() => {
             dispatcher('increment');
@@ -48,13 +62,13 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
         //purposley capitalize the first character
         switch (even) {
             case 2:
-                return 'Two';
+                return 'two';
             case 4:
-                return 'Four';
+                return 'four';
             case 6:
-                return 'Six';
+                return 'six';
             default:
-                return 'Two';
+                return 'two';
         }
     }
 
@@ -63,8 +77,7 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
         const evenText = getEvenAsText(combination.even);
 
         try {
-            console.log(`Playing sound for ${oddText}${evenText}`);
-            sounds[`${oddText}${evenText}`]();
+          play({id: `${oddText}${evenText}`});
         }
         catch {
             console.log(`no sound for ${oddText}${evenText}`)
