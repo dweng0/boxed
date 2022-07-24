@@ -17,7 +17,8 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
 
     const { dispatcher, combination } = props;
     //const sounds: any = useSoundController();
-    const [play] = useSound('/sounds/boxingsprite.mp3', { 
+    const [play, {stop, isPlaying}] = useSound('/resources/boxingsprite.mp3', { 
+        volume: 0.5,
         sprite: {
             onetwo: [0, 756],
             onefour: [892, 1588],
@@ -31,12 +32,30 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
 
         }
     });
+
+    const playSound = (combination:Combination) => {
+        const oddText = getOddAsText(combination.odd);
+        const evenText = getEvenAsText(combination.even);
+        console.log(`${oddText}${evenText}`);
+        try {
+          play({id: `${oddText}${evenText}`});
+        }
+        catch {
+            console.log(`no sound for ${oddText}${evenText}`)
+        }
+        
+    }
+   
+   
     useEffect(() => { 
         const timeout = setTimeout(() => {
             dispatcher('increment');
         }, combination.cadence + CADENCE_FLOOR);
-        
-        return () => clearTimeout(timeout);
+        playSound(combination);
+        return () => {
+            stop();
+            clearTimeout(timeout)
+        };
 
     }, [combination, dispatcher]);
 
@@ -72,20 +91,7 @@ const CombinationDisplay: React.FunctionComponent<CombinationDetails> = (props) 
         }
     }
 
-    const playSound = (combination:Combination) => {
-        const oddText = getOddAsText(combination.odd);
-        const evenText = getEvenAsText(combination.even);
-
-        try {
-          play({id: `${oddText}${evenText}`});
-        }
-        catch {
-            console.log(`no sound for ${oddText}${evenText}`)
-        }
-        
-    }
-   
-    playSound(combination);
+ 
     return (
         <div className="row"> 
             <div className="col">
