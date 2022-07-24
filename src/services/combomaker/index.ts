@@ -44,7 +44,7 @@ export class ComboMaker {
      * generate a random cadence in milli seconds
      */
     randomCadence(): number {
-        return this.randomNumber(1500, 2700, 0);
+        return this.randomNumber(700, 1500, 0);
     }
 
     randomOdd(previous: number): number {

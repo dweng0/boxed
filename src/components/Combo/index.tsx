@@ -9,7 +9,7 @@ interface CombinationDetails {
     dispatcher: any
 }
 
-const CADENCE_FLOOR = 1000; 
+const CADENCE_FLOOR = 500; 
 const PUNCH_MAP = ['','jab', 'punch', 'hook', 'hook', 'uppercut', 'uppercut'];
 const DEFEND_MAP = ['', 'weave', 'weave', 'block', 'block', 'sideblock', 'sideblock'];
 
