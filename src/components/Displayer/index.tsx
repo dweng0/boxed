@@ -10,7 +10,7 @@ export interface ComboDetails {
 };
 
 //percentage at which the next combo will be an attack
-const OFFENSIVE_YIELD = 70;
+const OFFENSIVE_YIELD = 100;
 
 const onOffense = (): boolean => (Math.floor(Math.random() * 100) + 1) <= OFFENSIVE_YIELD;
 
@@ -57,7 +57,9 @@ const DisplayField: React.FunctionComponent<ComboDetails> = (props) => {
         return (
             <div className={`jumbotron text-center bg-primary`}>
                 <h1>Finished</h1>
+                <button>Restart</button>
             </div>
+            
         )
     }
    
